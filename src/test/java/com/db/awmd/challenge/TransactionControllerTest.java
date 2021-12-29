@@ -73,7 +73,5 @@ public class TransactionControllerTest {
 
     assertThatThrownBy(()->    this.mockMvc.perform(post("/v1/transactions").contentType(MediaType.APPLICATION_JSON)
             .content("{\"accountIdFrom\":\"1\",\"accountIdTo\":\"2\",\"transfer\":100}")).andExpect(status().isOk()));
-
   }
-
 }

@@ -1,6 +1,7 @@
 package com.db.awmd.challenge.repository;
 
 import com.db.awmd.challenge.domain.Account;
+import com.db.awmd.challenge.domain.Transaction;
 import com.db.awmd.challenge.exception.DuplicateAccountIdException;
 
 public interface AccountsRepository {
@@ -10,4 +11,6 @@ public interface AccountsRepository {
   Account getAccount(String accountId);
 
   void clearAccounts();
+
+  void transfer(Transaction transaction) throws InterruptedException;
 }

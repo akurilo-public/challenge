@@ -4,5 +4,5 @@ import com.db.awmd.challenge.domain.Transaction;
 
 public interface TransactionService {
 
-    void executeTransaction(Transaction transaction);
+    void executeTransaction(Transaction transaction) throws InterruptedException;
 }

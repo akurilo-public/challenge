@@ -35,18 +35,19 @@ public class Account {
         this.balance = balance;
     }
 
-    public void increaseBalance(BigDecimal balance) {
-        this.balance = this.balance.add(balance);
+    public Account increaseBalance(BigDecimal transfer) {
+        this.balance = this.balance.add(transfer);
+        return this;
     }
 
-    public void decreaseBalance(BigDecimal balance) {
-        this.balance = this.balance.subtract(balance);
-    }
+    public Account decreaseBalance(BigDecimal transfer) {
 
-    public void isEnoughFunds(BigDecimal transfer) {
         if (this.balance.compareTo(transfer) == -1) {
             log.error("Insufficient funds to transfer (accountId={}, balance={}, transfer={})", this.balance, transfer);
             throw new RuntimeException(String.format("Insufficient funds in the account id=s%", this.accountId));
         }
+
+        this.balance = this.balance.subtract(transfer);
+        return this;
     }
 }
