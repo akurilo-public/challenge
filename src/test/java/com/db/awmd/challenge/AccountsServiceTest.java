@@ -28,7 +28,7 @@ public class AccountsServiceTest {
     private NotificationService notificationService;
 
     @Test
-    public void addAccount() throws Exception {
+    public void addAccount() {
         Account account = new Account("Id-123");
         account.setBalance(new BigDecimal(1000));
         this.accountsService.createAccount(account);
@@ -37,7 +37,7 @@ public class AccountsServiceTest {
     }
 
     @Test
-    public void addAccount_failsOnDuplicateId() throws Exception {
+    public void addAccount_failsOnDuplicateId() {
         String uniqueId = "Id-" + System.currentTimeMillis();
         Account account = new Account(uniqueId);
         this.accountsService.createAccount(account);

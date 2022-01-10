@@ -41,10 +41,9 @@ public class Account {
     }
 
     public Account decreaseBalance(BigDecimal transfer) {
-
         if (this.balance.compareTo(transfer) == -1) {
             log.error("Insufficient funds to transfer (accountId={}, balance={}, transfer={})", this.balance, transfer);
-            throw new RuntimeException(String.format("Insufficient funds in the account id=s%", this.accountId));
+            throw new RuntimeException(String.format("Insufficient funds in the account id=%s", this.accountId));
         }
 
         this.balance = this.balance.subtract(transfer);

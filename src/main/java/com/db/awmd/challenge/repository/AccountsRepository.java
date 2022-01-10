@@ -4,13 +4,17 @@ import com.db.awmd.challenge.domain.Account;
 import com.db.awmd.challenge.domain.Transaction;
 import com.db.awmd.challenge.exception.DuplicateAccountIdException;
 
+import java.math.BigDecimal;
+
 public interface AccountsRepository {
 
-  void createAccount(Account account) throws DuplicateAccountIdException;
+    void createAccount(Account account) throws DuplicateAccountIdException;
 
-  Account getAccount(String accountId);
+    Account getAccount(String accountId);
 
-  void clearAccounts();
+    void clearAccounts();
 
-  void transfer(Transaction transaction) throws InterruptedException;
+    void decreaseBalance(String accountId, BigDecimal amount);
+
+    void increaseBalance(String accountId, BigDecimal amount);
 }
