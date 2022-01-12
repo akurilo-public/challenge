@@ -17,4 +17,4 @@ username: akurilo-public
 
 password:lux1111111111
 
-token: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
+token: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
