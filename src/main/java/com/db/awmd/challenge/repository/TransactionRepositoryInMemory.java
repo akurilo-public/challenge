@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
-public class TransactionRepositoryInMemory implements TransactionRepository{
+public class TransactionRepositoryInMemory implements TransactionRepository {
 
     private final AccountsRepository accountsRepository;
     private final BlockingQueue<Transaction> transactions = new LinkedBlockingQueue<>();
@@ -24,9 +24,6 @@ public class TransactionRepositoryInMemory implements TransactionRepository{
             Transaction transfer = transactions.poll(2, TimeUnit.SECONDS);
             accountsRepository.decreaseBalance(transfer.getAccountIdFrom(), transfer.getTransfer());
             accountsRepository.increaseBalance(transfer.getAccountIdTo(), transfer.getTransfer());
-
-            // Only for test
-            Thread.sleep(1000);
         }
     }
 }
