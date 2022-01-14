@@ -49,6 +49,33 @@ public class TransactionRepositoryInMemoryTest {
 
     @Test
     public void concurrencyConsistencyTest() throws InterruptedException {
+        accountsRepository.increaseBalance("2", new BigDecimal(12_000));
+
+        Thread t1 = new Thread(new Runnable() {
+            public void run() {
+                balanceUp();
+            }
+        }, "Thread-1");
+
+        Thread t2 = new Thread(new Runnable() {
+            public void run() {
+                balanceDown();
+            }
+        }, "Thread-2");
+
+        t1.start();
+        t2.start();
+
+        // Wait for all threads to complete.
+        t1.join();
+        t2.join();
+
+        assertThat(accountsRepository.getAccount("1").getBalance().doubleValue()).isEqualTo(12_000);
+        assertThat(accountsRepository.getAccount("2").getBalance().doubleValue()).isEqualTo(12_000);
+    }
+
+    @Test
+    public void concurrencyConsistencyTest2() throws InterruptedException {
         Thread t1 = new Thread(new Runnable() {
             public void run() {
                 balanceUp();
@@ -112,6 +139,20 @@ public class TransactionRepositoryInMemoryTest {
             Transaction transaction = Transaction.builder()
                     .accountIdFrom("1")
                     .accountIdTo("2")
+                    .transfer(BigDecimal.ONE)
+                    .build();
+            transactionRepository.transfer(transaction);
+        }
+    }
+
+    /**
+     * Transfer balance from the second account to the first account 4000 times.
+     */
+    private void balanceDown() {
+        for (int j = 0; j < 4000; ++j) {
+            Transaction transaction = Transaction.builder()
+                    .accountIdFrom("2")
+                    .accountIdTo("1")
                     .transfer(BigDecimal.ONE)
                     .build();
             transactionRepository.transfer(transaction);
