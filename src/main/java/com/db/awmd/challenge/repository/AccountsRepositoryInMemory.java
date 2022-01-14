@@ -23,7 +23,6 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class AccountsRepositoryInMemory implements AccountsRepository {
 
-    @Getter
     private final Map<String, Account> accounts = new ConcurrentHashMap<>();
 
     @Override
